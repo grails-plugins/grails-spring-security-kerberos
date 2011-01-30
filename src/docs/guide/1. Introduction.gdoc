@@ -1,0 +1,4 @@
+The Kerberos plugin adds [Kerberos|http://web.mit.edu/kerberos/] single sign-on support to a Grails application that uses Spring Security. It depends on the [Spring Security Core plugin|http://grails.org/plugin/spring-security-core].
+
+Once you have configured a Kerberos server (typically Microsoft Active Directory or MIT Kerberos) and have configured your Grails application(s) as clients, users who are have authenticated at the Kerberos server will be automatically authenticated as a user of your application(s) without requiring a password.
+
