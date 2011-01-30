@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>3. Configuration</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    There are a few configuration options for the Kerberos plugin.<p class="paragraph"/>The plugin uses the <a href="http://static.springsource.org/spring-security/site/extensions.html" target="blank">Kerberos/SPNEGO</a> Spring Security extension and the most relevant information about it can be found <a href="http://blog.springsource.com/2009/09/28/spring-security-kerberos/" target="blank">in this blog post</a>.<p class="paragraph"/><blockquote class="note">
+All of these property overrides must be specified in <code>grails-app/conf/Config.groovy</code> using the <code>grails.plugins.springsecurity</code> suffix, for example
+<div class="code"><pre>grails.plugins.springsecurity.kerberos.debug = <span class="java&#45;keyword">true</span></pre></div>
+</blockquote><p class="paragraph"/>There are two required properties:
+<table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th><strong class="bold">Name</strong></th><th><strong class="bold">Default</strong></th><th><strong class="bold">Meaning</strong></th></tr><tr class="table-odd"><td>kerberos.ticketValidator.servicePrincipal</td><td>none, required</td><td>the web application service principal, e.g. <code>HTTP/www.example.com&#64;EXAMPLE.COM</code></td></tr><tr class="table-even"><td>kerberos.ticketValidator.keyTabLocation</td><td>none, required</td><td>the URL to the location of the keytab file containing the service principal's credentials, e.g. <code>file:///etc/http-web.keytab</code></td></tr></table><p class="paragraph"/>and three optional properties:<p class="paragraph"/><table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th><strong class="bold">Name</strong></th><th><strong class="bold">Default</strong></th><th><strong class="bold">Meaning</strong></th></tr><tr class="table-odd"><td>kerberos.configLocation</td><td><code>null</code></td><td>The location of the Kerberos config file. Leave unset to use the default location (e.g. <code>/etc/krb5.conf</code>, <code>c:&#119;innt&#107;rb5.ini</code>, <code>/etc/krb5/krb5.conf</code>)</td></tr><tr class="table-even"><td>kerberos.debug</td><td><code>false</code></td><td>if <code>true</code> enables debug logs from the Sun Kerberos Implementation</td></tr><tr class="table-odd"><td>kerberos.ticketValidator.debug</td><td><code>false</code></td><td>if <code>true</code> enables ticket validator debug messages</td></tr></table><p class="paragraph"/>
+    
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16219500-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</body>
+</html>

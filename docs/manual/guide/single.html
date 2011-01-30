@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>grails-spring-security-kerberos 0.1 - Reference Documentation</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Style" charset="utf-8"/>
+        <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    </head>
+    <body class="body">
+        <div id="header">
+            <div class="images"><br/><br/>
+                <a href="http://grails.org" target="_blank"><img alt="The Grails Framework" src="../img/grails.png" border="0"/></a>
+                <span style="right:30px; top:20px; position:absolute;">
+                    <a href="../index.html" target="_top">Frames</a> | <a href="index.html" target="_top">No Frames</a><br/><br/>
+                    <a href="http://springsource.com" target="_blank"><img alt="SpringSource - A Division of VMware" src="../img/springsource-logo.png" border="0"/></a>
+                </span>
+            </div>
+            <div class="message">grails-spring-security-kerberos</div>
+            <h1>grails-spring-security-kerberos - Reference Documentation</h1>
+            <p><strong>Authors:</strong> Burt Beckwith</p>
+            <p><strong>Version:</strong> 0.1</p>
+            <em></em>
+        </div>
+
+        <div id="toc">
+            <h2>Table of Contents</h2>
+            <div class="tocItem" style="margin-left:0px"><a href="#1. Introduction">1. Introduction</a></div><div class="tocItem" style="margin-left:10px"><a href="#1.1 History">1.1 History</a></div><div class="tocItem" style="margin-left:0px"><a href="#2. Usage">2. Usage</a></div><div class="tocItem" style="margin-left:0px"><a href="#3. Configuration">3. Configuration</a></div>
+        </div>
+        <div id="content">
+            <h1><a name="1. Introduction">1. Introduction</a></h1>The Kerberos plugin adds <a href="http://web.mit.edu/kerberos/" target="blank">Kerberos</a> single sign-on support to a Grails application that uses Spring Security. It depends on the <a href="http://grails.org/plugin/spring-security-core" target="blank">Spring Security Core plugin</a>.<p class="paragraph"/>Once you have configured a Kerberos server (typically Microsoft Active Directory or MIT Kerberos) and have configured your Grails application(s) as clients, users who are have authenticated at the Kerberos server will be automatically authenticated as a user of your application(s) without requiring a password.<p class="paragraph"/><h2><a name="1.1 History">1.1 History</a></h2><ul class="star">
+<li>Version 0.1</li>
+<ul class="star">
+<li>released January 30, 2011</li>
+</ul></ul><p class="paragraph"/><h1><a name="2. Usage">2. Usage</a></h1><blockquote class="note">
+Configuring your Kerberos server is beyond the scope of this document. There are several options and this will most likely be done by IT staff. It's assumed here that you already have a running Kerberos server.
+</blockquote><p class="paragraph"/>The plugin uses the <a href="http://static.springsource.org/spring-security/site/extensions.html" target="blank">Kerberos/SPNEGO</a> Spring Security extension and the most relevant information about it can be found <a href="http://blog.springsource.com/2009/09/28/spring-security-kerberos/" target="blank">in this blog post</a>.<p class="paragraph"/>There isn't much that you need to do in your application to be a Kerberos client. Just install this plugin, and configure the two required parameters and whatever optional parameters you want in <code>Config.groovy</code>. These are described in detail in <a href="../guide/single.html#3. Configuration" class="guide">Chapter 3</a> but typically you only need to set these properties<p class="paragraph"/><div class="code"><pre>grails.plugins.springsecurity.kerberos.ticketValidator.servicePrincipal =
+      'HTTP/kerberos.server.name@KERBEROS.DOMAIN'<p class="paragraph"/>grails.plugins.springsecurity.kerberos.ticketValidator.keyTabLocation =
+      'file:///path/to/your.keytab'</pre></div><p class="paragraph"/><h4>UserDetailsService</h4><p class="paragraph"/>Currently the only information that is retrieved from Kerberos is the username (plus the authentication status of course) so you'll need to have user and role data in your database corresponding to Kerberos users. Since you'll be authenticating externally you can either remove the password field from the user class and use a custom <code>UserDetailsService</code> or just store dummy values in the password column to satisfy the not-null constraint.<p class="paragraph"/><h1><a name="3. Configuration">3. Configuration</a></h1>There are a few configuration options for the Kerberos plugin.<p class="paragraph"/>The plugin uses the <a href="http://static.springsource.org/spring-security/site/extensions.html" target="blank">Kerberos/SPNEGO</a> Spring Security extension and the most relevant information about it can be found <a href="http://blog.springsource.com/2009/09/28/spring-security-kerberos/" target="blank">in this blog post</a>.<p class="paragraph"/><blockquote class="note">
+All of these property overrides must be specified in <code>grails-app/conf/Config.groovy</code> using the <code>grails.plugins.springsecurity</code> suffix, for example
+<div class="code"><pre>grails.plugins.springsecurity.kerberos.debug = <span class="java&#45;keyword">true</span></pre></div>
+</blockquote><p class="paragraph"/>There are two required properties:
+<table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th><strong class="bold">Name</strong></th><th><strong class="bold">Default</strong></th><th><strong class="bold">Meaning</strong></th></tr><tr class="table-odd"><td>kerberos.ticketValidator.servicePrincipal</td><td>none, required</td><td>the web application service principal, e.g. <code>HTTP/www.example.com&#64;EXAMPLE.COM</code></td></tr><tr class="table-even"><td>kerberos.ticketValidator.keyTabLocation</td><td>none, required</td><td>the URL to the location of the keytab file containing the service principal's credentials, e.g. <code>file:///etc/http-web.keytab</code></td></tr></table><p class="paragraph"/>and three optional properties:<p class="paragraph"/><table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th><strong class="bold">Name</strong></th><th><strong class="bold">Default</strong></th><th><strong class="bold">Meaning</strong></th></tr><tr class="table-odd"><td>kerberos.configLocation</td><td><code>null</code></td><td>The location of the Kerberos config file. Leave unset to use the default location (e.g. <code>/etc/krb5.conf</code>, <code>c:&#119;innt&#107;rb5.ini</code>, <code>/etc/krb5/krb5.conf</code>)</td></tr><tr class="table-even"><td>kerberos.debug</td><td><code>false</code></td><td>if <code>true</code> enables debug logs from the Sun Kerberos Implementation</td></tr><tr class="table-odd"><td>kerberos.ticketValidator.debug</td><td><code>false</code></td><td>if <code>true</code> enables ticket validator debug messages</td></tr></table><p class="paragraph"/>
+        </div>
+        <div id="footer">
+             
+        </div>
+    
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16219500-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</body>
+</html>
