@@ -43,14 +43,18 @@ class SpringSecurityKerberosGrailsPlugin {
 			return
 		}
 
-		println 'Configuring Spring Security Kerberos ...'
 		SpringSecurityUtils.loadSecondaryConfig 'DefaultKerberosSecurityConfig'
+		// have to get again after overlaying DefaultLdapSecurityConfig
+		conf = SpringSecurityUtils.securityConfig
+
+		if (!conf.kerberos.active) {
+			return
+		}
+        
+		println 'Configuring Spring Security Kerberos ...'
 		SpringSecurityUtils.registerProvider 'kerberosServiceAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'spnegoAuthenticationProcessingFilter',
 				SecurityFilterPosition.BASIC_AUTH_FILTER
-
-		// have to get again after overlaying DefaultKerberosSecurityConfig
-		conf = SpringSecurityUtils.securityConfig
 
 		authenticationEntryPoint(SpnegoEntryPoint)
 
