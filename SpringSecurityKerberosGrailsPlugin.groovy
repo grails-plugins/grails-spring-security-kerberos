@@ -44,7 +44,8 @@ class SpringSecurityKerberosGrailsPlugin {
 		}
 
 		SpringSecurityUtils.loadSecondaryConfig 'DefaultKerberosSecurityConfig'
-		// have to get again after overlaying DefaultLdapSecurityConfig
+		
+		// have to reload again after overlaying DefaultKerberosSecurityConfig
 		conf = SpringSecurityUtils.securityConfig
 
 		if (!conf.kerberos.active) {
