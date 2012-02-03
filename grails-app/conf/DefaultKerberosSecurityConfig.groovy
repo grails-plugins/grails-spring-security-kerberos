@@ -14,6 +14,8 @@
  */
 security {
 	kerberos {
+		// activate kerberos plugin
+		active = true
 
 		// enable debug logs from the Sun Kerberos Implementation
 		debug = false
