@@ -25,7 +25,6 @@ class SpringSecurityKerberosGrailsPlugin {
 
 	String version = '0.1'
 	String grailsVersion = '1.2.2 > *'
-	Map dependsOn = ['springSecurityCore': '1.0 > *']
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**'
@@ -37,6 +36,11 @@ class SpringSecurityKerberosGrailsPlugin {
 	String description = 'Spring Security Kerberos plugin'
 	String documentation = 'http://grails.org/plugin/spring-security-kerberos'
 
+	String license = 'APACHE'
+	def organization = [name: 'SpringSource', url: 'http://www.springsource.org/']
+	def issueManagement = [system: 'JIRA', url: 'http://jira.grails.org/browse/GPSPRINGSECURITYKERBEROS']
+	def scm = [url: 'https://github.com/grails-plugins/grails-spring-security-kerberos']
+
 	def doWithSpring = {
 		def conf = SpringSecurityUtils.securityConfig
 		if (!conf || !conf.active) {
@@ -44,15 +48,16 @@ class SpringSecurityKerberosGrailsPlugin {
 		}
 
 		SpringSecurityUtils.loadSecondaryConfig 'DefaultKerberosSecurityConfig'
-		
+
 		// have to reload again after overlaying DefaultKerberosSecurityConfig
 		conf = SpringSecurityUtils.securityConfig
 
 		if (!conf.kerberos.active) {
 			return
 		}
-        
-		println 'Configuring Spring Security Kerberos ...'
+
+		println '\nConfiguring Spring Security Kerberos ...'
+
 		SpringSecurityUtils.registerProvider 'kerberosServiceAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'spnegoAuthenticationProcessingFilter',
 				SecurityFilterPosition.BASIC_AUTH_FILTER
@@ -80,5 +85,7 @@ class SpringSecurityKerberosGrailsPlugin {
 			debug = conf.kerberos.debug // false
 			krbConfLocation = conf.kerberos.configLocation // null
 		}
+
+		println '... finished configuring Spring Security Kerberos\n'
 	}
 }

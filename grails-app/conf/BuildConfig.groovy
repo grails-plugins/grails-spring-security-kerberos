@@ -1,12 +1,10 @@
-grails.project.class.dir = 'target/classes'
-grails.project.test.class.dir = 'target/test-classes'
-grails.project.test.reports.dir	= 'target/test-reports'
-grails.project.docs.output.dir = 'docs' // for backwards-compatibility, the docs are checked into gh-pages branch
+grails.project.work.dir = 'target'
+grails.project.docs.output.dir = 'docs/manual' // for backwards-compatibility, the docs are checked into gh-pages branch
+grails.project.source.level = 1.6
 
 grails.project.dependency.resolution = {
 
 	inherits 'global'
-
 	log 'warn'
 
 	repositories {
@@ -19,7 +17,16 @@ grails.project.dependency.resolution = {
 
 	dependencies {
 		compile('org.springframework.security.extensions:spring-security-kerberos-core:1.0.0.M2') {
-			transitive = false
+			excludes 'junit', 'mockito-core', 'spring-security-core', 'spring-security-web',
+			         'servlet-api', 'commons-logging'
+		}
+	}
+
+	plugins {
+		compile ':spring-security-core:1.2.7.3'
+
+		build(':release:2.0.3', ':rest-client-builder:1.0.2') {
+			export = false
 		}
 	}
 }
