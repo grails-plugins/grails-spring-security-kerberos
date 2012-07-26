@@ -20,7 +20,7 @@ and three optional properties:
 
 {table}
 *Name* | *Default* | *Meaning*
-kerberos.configLocation | @null@ | The location of the Kerberos config file. Leave unset to use the default location (e.g. @/etc/krb5.conf@, @c:\winnt\krb5.ini@, @/etc/krb5/krb5.conf@)
+kerberos.configLocation | @null@ | The location of the Kerberos config file (specify the path to the file, but omit "file://", e.g. "c:/krb5.conf"). Leave unset to use the default location (e.g. @/etc/krb5.conf@, @c:\winnt\krb5.ini@, @/etc/krb5/krb5.conf@)
 kerberos.debug | @false@ | if @true@ enables debug logs from the Sun Kerberos Implementation
 kerberos.ticketValidator.debug | @false@ | if @true@ enables ticket validator debug messages
 {table}
