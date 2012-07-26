@@ -24,7 +24,7 @@ import org.springframework.security.extensions.kerberos.web.SpnegoEntryPoint
 class SpringSecurityKerberosGrailsPlugin {
 
 	String version = '0.1'
-	String grailsVersion = '1.2.2 > *'
+	String grailsVersion = '1.3.3 > *'
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**'
