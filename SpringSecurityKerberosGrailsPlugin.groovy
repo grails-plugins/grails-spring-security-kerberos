@@ -25,6 +25,7 @@ class SpringSecurityKerberosGrailsPlugin {
 
 	String version = '0.2-SNAPSHOT'
 	String grailsVersion = '1.3.3 > *'
+	List loadAfter = ['springSecurityCore']
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**'
