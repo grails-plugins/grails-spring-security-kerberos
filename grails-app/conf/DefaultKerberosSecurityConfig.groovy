@@ -1,4 +1,4 @@
-/* Copyright 2011 the original author or authors.
+/* Copyright 2011-2013 SpringSource.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  */
 security {
 	kerberos {
+		// activate kerberos plugin
+		active = true
 
 		// enable debug logs from the Sun Kerberos Implementation
 		debug = false

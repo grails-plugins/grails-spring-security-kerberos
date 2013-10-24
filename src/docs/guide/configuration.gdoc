@@ -1,11 +1,11 @@
 There are a few configuration options for the Kerberos plugin.
 
-The plugin uses the [Kerberos/SPNEGO|http://static.springsource.org/spring-security/site/extensions.html] Spring Security extension and the most relevant information about it can be found [in this blog post|http://blog.springsource.com/2009/09/28/spring-security-kerberos/].
+The plugin uses the [Kerberos/SPNEGO|http://docs.spring.io/spring-security/site/extensions.html] Spring Security extension and the most relevant information about it can be found [in this blog post|http://spring.io/blog/2009/09/28/spring-security-kerberos/].
 
 {note}
-All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugins.springsecurity@ suffix, for example
+All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugin.springsecurity@ suffix, for example
 {code}
-grails.plugins.springsecurity.kerberos.debug = true
+grails.plugin.springsecurity.kerberos.debug = true
 {code}
 {note}
 
@@ -20,8 +20,7 @@ and three optional properties:
 
 {table}
 *Name* | *Default* | *Meaning*
-kerberos.configLocation | @null@ | The location of the Kerberos config file. Leave unset to use the default location (e.g. @/etc/krb5.conf@, @c:\winnt\krb5.ini@, @/etc/krb5/krb5.conf@)
+kerberos.configLocation | @null@ | The location of the Kerberos config file (specify the path to the file, but omit "file://", e.g. "c:/krb5.conf"). Leave unset to use the default location (e.g. @/etc/krb5.conf@, @c:\winnt\krb5.ini@, @/etc/krb5/krb5.conf@)
 kerberos.debug | @false@ | if @true@ enables debug logs from the Sun Kerberos Implementation
 kerberos.ticketValidator.debug | @false@ | if @true@ enables ticket validator debug messages
 {table}
-

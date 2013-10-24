@@ -1,4 +1,4 @@
-import org.codehaus.groovy.grails.plugins.springsecurity.kerberos.NoopTicketValidator
+import grails.plugin.springsecurity.kerberos.NoopTicketValidator
 
 beans = {
 	kerberosTicketValidator(NoopTicketValidator)

@@ -1,6 +1,7 @@
-/cobertura.ser
-stacktrace.log
+*.log
 /target
-/grails-spring-security-kerberos-*.zip
-/testapps.config.groovy
-/plugin.xml
+grails-spring-security-kerberos-*.zip
+grails-spring-security-kerberos-*.zip.sha1
+plugin.xml
+.settings
+web-app
