@@ -1,6 +1,5 @@
 grails.project.work.dir = 'target'
 grails.project.docs.output.dir = 'docs/manual' // for backwards-compatibility, the docs are checked into gh-pages branch
-grails.project.source.level = 1.6
 
 grails.project.dependency.resolution = {
 
@@ -12,7 +11,7 @@ grails.project.dependency.resolution = {
 		grailsHome()
 		grailsCentral()
 
-		mavenRepo 'http://maven.springframework.org/milestone'
+		mavenRepo 'http://repo.spring.io/milestone'
 	}
 
 	dependencies {
@@ -23,9 +22,9 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
-		compile ':spring-security-core:1.2.7.3'
+		compile ':spring-security-core:2.0-RC2'
 
-		build(':release:2.0.4', ':rest-client-builder:1.0.2') {
+		build ':release:2.2.1', ':rest-client-builder:1.0.3', {
 			export = false
 		}
 	}
