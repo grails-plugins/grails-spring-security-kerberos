@@ -23,8 +23,8 @@ import org.springframework.security.extensions.kerberos.web.SpnegoEntryPoint
 
 class SpringSecurityKerberosGrailsPlugin {
 
-	String version = '0.2-SNAPSHOT'
-	String grailsVersion = '1.3.3 > *'
+	String version = '1.0-RC1'
+	String grailsVersion = '2.0 > *'
 	List loadAfter = ['springSecurityCore']
 	List pluginExcludes = [
 		'docs/**',
@@ -32,10 +32,10 @@ class SpringSecurityKerberosGrailsPlugin {
 	]
 
 	String author = 'Burt Beckwith'
-	String authorEmail = 'beckwithb@vmware.com'
+	String authorEmail = 'burt@burtbeckwith.com'
 	String title = 'Spring Security Kerberos Plugin'
 	String description = 'Spring Security Kerberos plugin'
-	String documentation = 'http://grails.org/plugin/spring-security-kerberos'
+	String documentation = 'http://grails-plugins.github.io/grails-spring-security-kerberos/'
 
 	String license = 'APACHE'
 	def organization = [name: 'SpringSource', url: 'http://www.springsource.org/']
