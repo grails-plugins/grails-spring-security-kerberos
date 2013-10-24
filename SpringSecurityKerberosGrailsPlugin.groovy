@@ -57,7 +57,11 @@ class SpringSecurityKerberosGrailsPlugin {
 			return
 		}
 
-		println '\nConfiguring Spring Security Kerberos ...'
+		boolean printStatusMessages = (conf.printStatusMessages instanceof Boolean) ? conf.printStatusMessages : true
+
+		if (printStatusMessages) {
+			println '\nConfiguring Spring Security Kerberos ...'
+		}
 
 		SpringSecurityUtils.registerProvider 'kerberosServiceAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'spnegoAuthenticationProcessingFilter',
@@ -87,6 +91,8 @@ class SpringSecurityKerberosGrailsPlugin {
 			krbConfLocation = conf.kerberos.configLocation // null
 		}
 
-		println '... finished configuring Spring Security Kerberos\n'
+		if (printStatusMessages) {
+			println '... finished configuring Spring Security Kerberos\n'
+		}
 	}
 }
