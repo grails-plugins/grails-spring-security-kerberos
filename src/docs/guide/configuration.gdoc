@@ -1,6 +1,6 @@
 There are a few configuration options for the Kerberos plugin.
 
-The plugin uses the [Kerberos/SPNEGO|http://docs.spring.io/spring-security/site/extensions.html] Spring Security extension and the most relevant information about it can be found [in this blog post|http://spring.io/blog/2009/09/28/spring-security-kerberos/].
+The plugin uses the [Spring Security Kerberos extension|http://projects.spring.io/spring-security-kerberos/].
 
 {note}
 All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugin.springsecurity@ suffix, for example
@@ -16,11 +16,18 @@ kerberos.ticketValidator.servicePrincipal | none, required | the web application
 kerberos.ticketValidator.keyTabLocation | none, required | the URL to the location of the keytab file containing the service principal's credentials, e.g. @file:///etc/http-web.keytab@
 {table}
 
-and three optional properties:
+and some optional properties:
 
 {table}
 *Name* | *Default* | *Meaning*
+kerberos.active | @true@ | set to @false@ to disable the plugin
+kerberos.client.debug | @false@ | if @true@ enables debug logs for the kerberos client bean
 kerberos.configLocation | @null@ | The location of the Kerberos config file (specify the path to the file, but omit "file://", e.g. "c:/krb5.conf"). Leave unset to use the default location (e.g. @/etc/krb5.conf@, @c:\winnt\krb5.ini@, @/etc/krb5/krb5.conf@)
-kerberos.debug | @false@ | if @true@ enables debug logs from the Sun Kerberos Implementation
-kerberos.ticketValidator.debug | @false@ | if @true@ enables ticket validator debug messages
+kerberos.debug | @false@ | if @true@ enables debug logs for the kerberosConfig bean
+kerberos.skipIfAlreadyAuthenticated | @true@ | if @true@ skip SpnegoAuthenticationProcessingFilter processing if already authenticated
+kerberos.spnegoEntryPointForwardUrl | @null@ | if set (e.g. '/login/auth') the EntryPoint will forward there in addition to setting the WWW-Authenticate header
+kerberos.successHandler.headerName | 'WWW-Authenticate' | the name of the header to set following successful authentication
+kerberos.successHandler.headerPrefix | 'Negotiate ' | the prefix for the encoded response token value
+kerberos.ticketValidator.debug | @false@ | if @true@ enables debug logs for the ticketValidator bean
+kerberos.ticketValidator.holdOnToGSSContext | @false@ | if @true@, hold on to the GSS security context, otherwise call @dispose()@ immediately
 {table}

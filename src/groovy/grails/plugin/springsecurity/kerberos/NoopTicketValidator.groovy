@@ -14,7 +14,8 @@
  */
 package grails.plugin.springsecurity.kerberos
 
-import org.springframework.security.extensions.kerberos.KerberosTicketValidator
+import org.springframework.security.kerberos.authentication.KerberosTicketValidation
+import org.springframework.security.kerberos.authentication.KerberosTicketValidator
 
 /**
  * Dummy implementation <code>KerberosTicketValidator</code> that avoids needing Kerberos
@@ -23,5 +24,5 @@ import org.springframework.security.extensions.kerberos.KerberosTicketValidator
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
  */
 class NoopTicketValidator implements KerberosTicketValidator {
-	String validateTicket(byte[] token) { null }
+	KerberosTicketValidation validateTicket(byte[] token) {}
 }

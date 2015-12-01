@@ -15,11 +15,14 @@
 import grails.plugin.springsecurity.SecurityFilterPosition
 import grails.plugin.springsecurity.SpringSecurityUtils
 
-import org.springframework.security.extensions.kerberos.GlobalSunJaasKerberosConfig
-import org.springframework.security.extensions.kerberos.KerberosServiceAuthenticationProvider
-import org.springframework.security.extensions.kerberos.SunJaasKerberosTicketValidator
-import org.springframework.security.extensions.kerberos.web.SpnegoAuthenticationProcessingFilter
-import org.springframework.security.extensions.kerberos.web.SpnegoEntryPoint
+import org.springframework.security.kerberos.authentication.KerberosAuthenticationProvider
+import org.springframework.security.kerberos.authentication.KerberosServiceAuthenticationProvider
+import org.springframework.security.kerberos.authentication.sun.GlobalSunJaasKerberosConfig
+import org.springframework.security.kerberos.authentication.sun.SunJaasKerberosClient
+import org.springframework.security.kerberos.authentication.sun.SunJaasKerberosTicketValidator
+import org.springframework.security.kerberos.web.authentication.ResponseHeaderSettingKerberosAuthenticationSuccessHandler
+import org.springframework.security.kerberos.web.authentication.SpnegoAuthenticationProcessingFilter
+import org.springframework.security.kerberos.web.authentication.SpnegoEntryPoint
 
 class SpringSecurityKerberosGrailsPlugin {
 
@@ -63,27 +66,45 @@ class SpringSecurityKerberosGrailsPlugin {
 			println '\nConfiguring Spring Security Kerberos ...'
 		}
 
+		SpringSecurityUtils.registerProvider 'kerberosAuthenticationProvider'
 		SpringSecurityUtils.registerProvider 'kerberosServiceAuthenticationProvider'
-		SpringSecurityUtils.registerFilter 'spnegoAuthenticationProcessingFilter',
-				SecurityFilterPosition.BASIC_AUTH_FILTER
+		SpringSecurityUtils.registerFilter 'spnegoAuthenticationProcessingFilter', SecurityFilterPosition.BASIC_AUTH_FILTER
 
-		authenticationEntryPoint(SpnegoEntryPoint)
+		authenticationEntryPoint(SpnegoEntryPoint, conf.kerberos.spnegoEntryPointForwardUrl ?: null)
+
+		authenticationSuccessHandler(ResponseHeaderSettingKerberosAuthenticationSuccessHandler) {
+			headerName = conf.kerberos.successHandler.headerName // 'WWW-Authenticate'
+			headerPrefix = conf.kerberos.successHandler.headerPrefix // 'Negotiate '
+		}
 
 		spnegoAuthenticationProcessingFilter(SpnegoAuthenticationProcessingFilter) {
+			authenticationDetailsSource = ref('authenticationDetailsSource')
 			authenticationManager = ref('authenticationManager')
-//			successHandler = ref('authenticationSuccessHandler')
-//			failureHandler = ref('authenticationFailureHandler')
+			sessionAuthenticationStrategy = ref('sessionAuthenticationStrategy')
+			skipIfAlreadyAuthenticated = conf.kerberos.skipIfAlreadyAuthenticated // true
+			successHandler = ref('authenticationSuccessHandler')
+			// failureHandler = ref('authenticationFailureHandler')
 		}
 
 		kerberosTicketValidator(SunJaasKerberosTicketValidator) {
-			servicePrincipal = conf.kerberos.ticketValidator.servicePrincipal
-			keyTabLocation = conf.kerberos.ticketValidator.keyTabLocation
 			debug = conf.kerberos.ticketValidator.debug // false
+			holdOnToGSSContext = conf.kerberos.ticketValidator.holdOnToGSSContext // false
+			keyTabLocation = conf.kerberos.ticketValidator.keyTabLocation
+			servicePrincipal = conf.kerberos.ticketValidator.servicePrincipal
+		}
+
+		kerberosAuthenticationProvider(KerberosAuthenticationProvider) {
+			kerberosClient = ref('kerberosClient')
+			userDetailsService = ref('userDetailsService')
+		}
+
+		kerberosClient(SunJaasKerberosClient) {
+			debug = conf.kerberos.client.debug // false
 		}
 
 		kerberosServiceAuthenticationProvider(KerberosServiceAuthenticationProvider) {
-			userDetailsService = ref('userDetailsService')
 			ticketValidator = ref('kerberosTicketValidator')
+			userDetailsService = ref('userDetailsService')
 		}
 
 		kerberosConfig(GlobalSunJaasKerberosConfig) {

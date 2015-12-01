@@ -2,7 +2,7 @@
 Configuring your Kerberos server is beyond the scope of this document. There are several options and this will most likely be done by IT staff. It's assumed here that you already have a running Kerberos server.
 {note}
 
-The plugin uses the [Kerberos/SPNEGO|http://docs.spring.io/spring-security/site/extensions.html] Spring Security extension and the most relevant information about it can be found [in this blog post|http://spring.io/blog/2009/09/28/spring-security-kerberos/].
+The plugin adds support for Kerberos and is based on the [Spring Security Kerberos extension|http://projects.spring.io/spring-security-kerberos/].
 
 There isn't much that you need to do in your application to be a Kerberos client. Just install this plugin, and configure the two required parameters and whatever optional parameters you want in @Config.groovy@. These are described in detail in [Chapter 3|guide:3. Configuration] but typically you only need to set these properties
 

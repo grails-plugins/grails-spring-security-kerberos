@@ -17,16 +17,33 @@ security {
 		// activate kerberos plugin
 		active = true
 
-		// enable debug logs from the Sun Kerberos Implementation
-		debug = false
+		client {
+			debug = false
+		}
 
 		// Kerberos config file location can be specified here
 		configLocation = null
 
+		// enable debug logs for the kerberosConfig bean
+		debug = false
+
+		// skip SpnegoAuthenticationProcessingFilter processing if already authenticated
+		skipIfAlreadyAuthenticated = true
+
+		// Override with a url (e.g. '/login/auth') to forward there
+		// in addition to setting the WWW-Authenticate header
+		spnegoEntryPointForwardUrl = null
+
+		successHandler {
+			headerName = 'WWW-Authenticate'
+			headerPrefix = 'Negotiate '
+		}
+
 		ticketValidator {
-			servicePrincipal = null // must be set
-			keyTabLocation = null // must be set
 			debug = false
+			holdOnToGSSContext = false
+			keyTabLocation = null // must be set
+			servicePrincipal = null // must be set
 		}
 	}
 }
