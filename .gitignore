@@ -4,5 +4,7 @@
 grails-spring-security-kerberos-*.zip
 grails-spring-security-kerberos-*.zip.sha1
 plugin.xml
+.classpath
+.project
 .settings
 web-app
