@@ -1,0 +1,24 @@
+[[usage]]
+== Usage
+
+[NOTE]
+====
+Configuring your Kerberos server is beyond the scope of this document. There are several options and this will most likely be done by IT staff. It's assumed here that you already have a running Kerberos server.
+====
+
+The plugin adds support for Kerberos and is based on the http://projects.spring.io/spring-security-kerberos/[Spring Security Kerberos extension].
+
+There isn't much that you need to do in your application to be a Kerberos client. Just install this plugin, and configure the two required parameters and whatever optional parameters you want in `application.groovy`. These are described in detail in the <<configuration>> section but typically you only need to set these properties:
+
+[source,java]
+----
+grails.plugin.springsecurity.kerberos.ticketValidator.servicePrincipal =
+      'HTTP/kerberos.server.name@KERBEROS.DOMAIN'
+
+grails.plugin.springsecurity.kerberos.ticketValidator.keyTabLocation =
+      'file:///path/to/your.keytab'
+----
+
+=== UserDetailsService
+
+Currently the only information that is retrieved from Kerberos is the username (plus the authentication status of course) so you'll need to have user and role data in your database corresponding to Kerberos users. Since you'll be authenticating externally you can either remove the password field from the user class and use a custom `UserDetailsService` or just store dummy values in the password column to satisfy the not-null constraint.

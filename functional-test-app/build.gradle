@@ -1,0 +1,74 @@
+buildscript {
+	ext {
+		grailsVersion = project.grailsVersion
+	}
+	repositories {
+		mavenLocal()
+		maven { url 'https://repo.grails.org/grails/core' }
+	}
+	dependencies {
+		classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+	}
+}
+
+plugins {
+	id 'io.spring.dependency-management' version '0.5.2.RELEASE'
+}
+
+version '0.1'
+group 'functional.test.app'
+
+apply plugin: 'spring-boot'
+apply plugin: 'org.grails.grails-web'
+
+ext {
+	grailsVersion = project.grailsVersion
+	gradleWrapperVersion = project.gradleWrapperVersion
+}
+
+repositories {
+	mavenLocal()
+	maven { url 'https://repo.grails.org/grails/core' }
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.grails:grails-bom:$grailsVersion"
+	}
+	applyMavenExclusions false
+}
+
+dependencies {
+
+	compile 'org.grails:grails-dependencies'
+	compile 'org.grails:grails-web-boot'
+	compile 'org.springframework.boot:spring-boot-autoconfigure'
+	compile 'org.springframework.boot:spring-boot-starter-logging'
+	compile 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	String pluginVersion = file('../version.txt').text.trim()
+	compile 'org.grails.plugins:spring-security-kerberos:' + pluginVersion
+
+	compile 'org.apache.httpcomponents:httpclient:4.5.1'
+
+	String apacheDirServerVersion = '2.0.0-M15'
+	['core-api', 'interceptor-kerberos', 'protocol-shared', 'protocol-kerberos',
+	 'ldif-partition', 'mavibot-partition', 'jdbm-partition', 'protocol-ldap'].each {
+		compile "org.apache.directory.server:apacheds-$it:$apacheDirServerVersion", {
+			exclude module: 'api-ldap-schema-data'
+		}
+	}
+
+	String apacheDirApiVersion = '1.0.0-M20'
+	compile "org.apache.directory.api:api-all:$apacheDirApiVersion", {
+		['api-ldap-schema-data', 'xml-apis', 'xpp3', 'dom4j'].each { exclude module: it }
+	}
+
+	testCompile 'org.grails:grails-plugin-testing'
+
+	console 'org.grails:grails-console'
+}
+
+integrationTest {
+	beforeTest { descriptor -> logger.lifecycle " -- $descriptor" }
+}

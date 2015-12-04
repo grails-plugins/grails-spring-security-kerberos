@@ -1,0 +1,6 @@
+=== History
+
+* October 24, 2013
+** 1.0-RC1 release
+* January 30, 2011
+** initial 0.1 release

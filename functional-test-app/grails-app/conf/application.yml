@@ -1,0 +1,13 @@
+grails:
+   profile: web
+info:
+   app:
+      name: '@info.app.name@'
+      version: '@info.app.version@'
+      grailsVersion: '@info.app.grailsVersion@'
+server:
+   port: 8238
+spring:
+   groovy:
+      template:
+         check-template-location: false
