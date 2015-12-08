@@ -1,7 +1,9 @@
 *.log
+/.gradle
+/.idea
+/build
 /target
-grails-spring-security-kerberos-*.zip
-grails-spring-security-kerberos-*.zip.sha1
-plugin.xml
-.settings
-web-app
+/grails-spring-security-kerberos-*.zip
+/grails-spring-security-kerberos-*.zip.sha1
+/plugin.xml
+/web-app
