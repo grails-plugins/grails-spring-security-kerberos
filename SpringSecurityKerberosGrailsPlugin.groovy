@@ -26,8 +26,8 @@ import org.springframework.security.kerberos.web.authentication.SpnegoEntryPoint
 
 class SpringSecurityKerberosGrailsPlugin {
 
-	String version = '1.0-RC1'
-	String grailsVersion = '2.0 > *'
+	String version = '1.0.0'
+	String grailsVersion = '2.3 > *'
 	List loadAfter = ['springSecurityCore']
 	List pluginExcludes = [
 		'docs/**',
@@ -42,7 +42,7 @@ class SpringSecurityKerberosGrailsPlugin {
 
 	String license = 'APACHE'
 	def organization = [name: 'Grails', url: 'http://www.grails.org/']
-	def issueManagement = [system: 'JIRA', url: 'http://jira.grails.org/browse/GPSPRINGSECURITYKERBEROS']
+	def issueManagement = [url: 'https://github.com/grails-plugins/grails-spring-security-kerberos/issues']
 	def scm = [url: 'https://github.com/grails-plugins/grails-spring-security-kerberos']
 
 	def doWithSpring = {
