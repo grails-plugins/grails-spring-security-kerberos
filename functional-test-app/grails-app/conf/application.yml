@@ -1,5 +1,7 @@
 grails:
    profile: web
+   spring:
+      transactionManagement: false
 info:
    app:
       name: '@info.app.name@'
