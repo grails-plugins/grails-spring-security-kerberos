@@ -20,13 +20,16 @@ plugins {
 	id 'com.jfrog.bintray' version '1.2'
 }
 
+ext {
+    springSecurityKerberosVersion = '1.0.1.RELEASE'
+}
+
 apply from: 'gradle/plugin.gradle'
 
 dependencies {
 
 	compile 'org.grails.plugins:spring-security-core:3.0.0'
 
-	String springSecurityKerberosVersion = '1.0.1.RELEASE'
 
 	compile "org.springframework.security.kerberos:spring-security-kerberos-core:$springSecurityKerberosVersion", {
 		['spring-core', 'spring-security-core'].each { exclude module: it }
